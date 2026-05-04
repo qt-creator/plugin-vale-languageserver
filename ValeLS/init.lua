@@ -182,6 +182,7 @@ local function setupAspect()
     labelPlacement = S.LabelPlacement.InExtraLabel,
   })
 
+  Settings:readSettings()
 
   Options = S.OptionsPage.create({
     aspectContainer = Settings,
@@ -204,7 +205,7 @@ local function createInitOptions()
     syncOnStartup = Settings.syncOnStartup.value,
   }
   if Settings.configPath.expandedValue:exists() then
-    result.configPath = Settings.configPath.expandedValue
+    result.configPath = Settings.configPath.expandedValue:toUserOutput()
   end
   return result
 end
