@@ -54,7 +54,6 @@ jobs:
         uses: softprops/action-gh-release@v2
         id: create_release
         with:
-          token: ${{ secrets.RELEASE_TOKEN }}
           files: ValeLS.zip
 
       - name: Release on Extension Store
