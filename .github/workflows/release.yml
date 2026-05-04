@@ -55,12 +55,3 @@ jobs:
         id: create_release
         with:
           files: ValeLS.zip
-
-      - name: Release on Extension Store
-        uses: qt-creator/deploy-lua-plugin@v4.1
-        with:
-          api: ${{ secrets.EXTENSION_STORE_API_URL }}
-          token: ${{ secrets.EXTENSION_STORE_API_TOKEN }}
-          spec: ValeLS/ValeLS.lua
-          publish: true
-          download-url: ${{ fromJSON(steps.create_release.outputs.assets)[0].browser_download_url }} 
