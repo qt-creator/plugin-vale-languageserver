@@ -97,6 +97,14 @@ local function layoutSettings()
     Settings.configPath, br,
     Settings.autoInstallVale, br,
     Settings.syncOnStartup, br,
+    Settings.valeBinary, br,
+    Settings.root, br,
+    Settings.noGlobal, br,
+    Settings.filter, br,
+    Settings.showMetrics, br,
+    Settings.lintOnChange, br,
+    Settings.debounceMs, br,
+    Settings.roots, br,
     Row {
       PushButton {
         text = tr("Install Vale Language Server"),
@@ -182,6 +190,72 @@ local function setupAspect()
     labelPlacement = S.LabelPlacement.InExtraLabel,
   })
 
+  Settings.valeBinary = S.FilePathAspect.create({
+    settingsKey = "ValeBinary",
+    displayName = tr("Vale Binary"),
+    labelText = tr("Vale Binary:"),
+    toolTip = tr("The path to the Vale CLI. Empty uses the one on PATH."),
+    expectedKind = S.Kind.ExistingCommand,
+  })
+
+  Settings.root = S.FilePathAspect.create({
+    settingsKey = "Root",
+    displayName = tr("Root"),
+    labelText = tr("Root:"),
+    toolTip = tr("The directory Vale runs from when no document is open. Empty uses the workspace root."),
+    expectedKind = S.Kind.ExistingDirectory,
+  })
+
+  Settings.noGlobal = S.BoolAspect.create({
+    settingsKey = "NoGlobal",
+    displayName = tr("No Global Vale Config"),
+    labelText = tr("No Global Config:"),
+    toolTip = tr("Pass --no-global to every Vale call."),
+    defaultValue = false,
+    labelPlacement = S.LabelPlacement.InExtraLabel,
+  })
+
+  Settings.filter = S.StringAspect.create({
+    settingsKey = "Filter",
+    displayName = tr("Filter"),
+    labelText = tr("Filter:"),
+    toolTip = tr("A config filter passed to Vale."),
+    defaultValue = "",
+  })
+
+  Settings.showMetrics = S.BoolAspect.create({
+    settingsKey = "ShowMetrics",
+    displayName = tr("Show Metrics"),
+    labelText = tr("Show Metrics:"),
+    toolTip = tr("Show the metrics code lens."),
+    defaultValue = true,
+    labelPlacement = S.LabelPlacement.InExtraLabel,
+  })
+
+  Settings.lintOnChange = S.BoolAspect.create({
+    settingsKey = "LintOnChange",
+    displayName = tr("Lint On Change"),
+    labelText = tr("Lint On Change:"),
+    toolTip = tr("Lint while typing. When off, linting happens on save only."),
+    defaultValue = true,
+    labelPlacement = S.LabelPlacement.InExtraLabel,
+  })
+
+  Settings.debounceMs = S.IntegerAspect.create({
+    settingsKey = "DebounceMs",
+    displayName = tr("Debounce (ms)"),
+    labelText = tr("Debounce (ms):"),
+    toolTip = tr("How long typing must settle before linting, in milliseconds."),
+    defaultValue = 300,
+  })
+
+  Settings.roots = S.StringListAspect.create({
+    settingsKey = "Roots",
+    displayName = tr("Roots"),
+    labelText = tr("Roots:"),
+    toolTip = tr("Workspace roots used to pick the .vale.ini for each file. Empty uses the opened folders."),
+  })
+
   Settings:readSettings()
 
   Options = S.OptionsPage.create({
@@ -203,9 +277,21 @@ local function createInitOptions()
   local result = {
     installVale = Settings.autoInstallVale.value,
     syncOnStartup = Settings.syncOnStartup.value,
+    noGlobal = Settings.noGlobal.value,
+    filter = Settings.filter.value,
+    showMetrics = Settings.showMetrics.value,
+    lintOnChange = Settings.lintOnChange.value,
+    debounceMs = Settings.debounceMs.value,
+    roots = Settings.roots.value,
   }
   if Settings.configPath.expandedValue:exists() then
     result.configPath = Settings.configPath.expandedValue:toUserOutput()
+  end
+  if Settings.valeBinary.expandedValue:exists() then
+    result.valeBinaryPath = Settings.valeBinary.expandedValue:toUserOutput()
+  end
+  if Settings.root.expandedValue:exists() then
+    result.root = Settings.root.expandedValue:toUserOutput()
   end
   return result
 end
