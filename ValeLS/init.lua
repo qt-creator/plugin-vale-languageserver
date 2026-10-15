@@ -157,8 +157,8 @@ local function setupAspect()
 
   Settings.binary = S.FilePathAspect.create({
     settingsKey = "Binary",
-    displayName = tr("Binary"),
-    labelText = tr("Binary:"),
+    displayName = tr("Language Server Binary"),
+    labelText = tr("Language Server Binary:"),
     toolTip = tr("The path to the Vale Language Server binary."),
     expectedKind = S.Kind.ExistingCommand,
     defaultPath = findBinary(),
@@ -192,8 +192,8 @@ local function setupAspect()
 
   Settings.valeBinary = S.FilePathAspect.create({
     settingsKey = "ValeBinary",
-    displayName = tr("Vale Binary"),
-    labelText = tr("Vale Binary:"),
+    displayName = tr("Vale CLI Binary"),
+    labelText = tr("Vale CLI Binary:"),
     toolTip = tr("The path to the Vale CLI. Empty uses the one on PATH."),
     expectedKind = S.Kind.ExistingCommand,
   })
@@ -247,6 +247,7 @@ local function setupAspect()
     labelText = tr("Debounce (ms):"),
     toolTip = tr("How long typing must settle before linting, in milliseconds."),
     defaultValue = 300,
+    range = { 0, 10000 },
   })
 
   Settings.roots = S.StringListAspect.create({
