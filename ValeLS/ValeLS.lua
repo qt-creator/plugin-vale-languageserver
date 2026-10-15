@@ -1,8 +1,8 @@
 return {
     Id = "vale",
     Name = "Vale Language Server",
-    Version = "1.0.3",
-    CompatVersion = "1.0.3",
+    Version = "1.0.4",
+    CompatVersion = "1.0.4",
     VendorId = "theqtcompany",
     Vendor = "The Qt Company",
     Copyright = "(C) The Qt Company 2024",
@@ -14,7 +14,7 @@ return {
     DisabledByDefault = false,
     Type = "Script",
     Dependencies = {
-        { Id = "lualanguageclient", Version = "15.0.0" }
+        { Id = "lualanguageclient", Version = "20.0.83" }
     },
     Tags = {"language server", "Vale", "ValeLS", "Qt"},
     Languages = {"en", "de"},

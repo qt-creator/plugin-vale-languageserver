@@ -217,11 +217,11 @@ local function setupClient()
     transport = 'stdio',
     showInSettings = false,
     languageFilter = {
-      patterns = { '*' },
+      mimeTypes = { 'text/plain' },
     },
     initializationOptions = createInitOptions,
     settings = Settings,
-    startBehavior = "RequiresProject",
+    startBehavior = "RequiresProjectOrFile",
     onStartFailed = function()
       a.sync(function()
         if IsTryingToInstall == true then
