@@ -14,7 +14,7 @@ return {
     DisabledByDefault = false,
     Type = "Script",
     Dependencies = {
-        { Id = "lualanguageclient", Version = "15.0.0" }
+        { Id = "lualanguageclient", Version = "20.0.83" }
     },
     Tags = {"language server", "Vale", "ValeLS", "Qt"},
     Languages = {"en", "de"},
